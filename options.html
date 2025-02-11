@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>禁止サイト管理</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #blockedSites, #excludedSites { margin-top: 10px; }
+        .site-item { display: flex; justify-content: space-between; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h2>禁止サイト管理</h2>
+    <input type="text" id="siteInput" placeholder="例: youtube.com">
+    <button id="addSite">追加</button>
+    
+    <h3>禁止サイトリスト</h3>
+    <ul id="blockedSites"></ul>
+
+    <h3>一時除外サイトリスト</h3>
+    <ul id="excludedSites"></ul>
+
+    <script src="options.js"></script>
+</body>
+</html>

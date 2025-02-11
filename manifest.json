@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Site Blocker",
+  "version": "1.61",
+  "description": "指定したサイトを開けなくするアドオン",
+  "permissions": [
+    "tabs",
+    "webNavigation",
+    "storage"
+  ],
+  "background": {
+    "scripts": [ "background.js" ],
+    "persistent": false
+  },
+  "applications": {
+    "gecko": {
+      "id": "youtube-auto-close@firefox",
+      "strict_min_version": "42.0"
+    }
+  },
+  "browser_action": {
+    "default_title": "サイトブロックの設定"
+  },
+  "options_page": "options.html"
+}

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const excludedSitesList = document.getElementById("excludedSites");
 
     function loadSites() {
-        browser.storage.sync.get({ blockedSites: [], excludedSites: [] }, (data) => {
+        browser.storage.local.get({ blockedSites: [], excludedSites: [] }, (data) => {
             blockedSitesList.innerHTML = "";
             excludedSitesList.innerHTML = "";
 
@@ -33,12 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
     addSiteButton.addEventListener("click", () => {
         const site = siteInput.value.trim();
         if (site) {
-            browser.storage.sync.get({ blockedSites: [] }, (data) => {
+            browser.storage.local.get({ blockedSites: [] }, (data) => {
                 const newSites = [...data.blockedSites, site];
-                browser.storage.sync.set({ blockedSites: newSites }, loadSites);
+                browser.storage.local.set({ blockedSites: newSites }, () => {
+                    siteInput.value = "";
+                    loadSites();
+                });
             });
         }
-        siteInput.value = "";
     });
 
     // サイトの除外・追加を処理
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const index = event.target.dataset.index;
             const type = event.target.dataset.type;
 
-            browser.storage.sync.get({ blockedSites: [], excludedSites: [] }, (data) => {
+            browser.storage.local.get({ blockedSites: [], excludedSites: [] }, (data) => {
                 if (type === "exclude") {
                     // 禁止サイトから削除し、一時除外リストに追加
                     const site = data.blockedSites.splice(index, 1)[0];
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 // ストレージを更新
-                browser.storage.sync.set({ 
+                browser.storage.local.set({ 
                     blockedSites: data.blockedSites, 
                     excludedSites: data.excludedSites 
                 }, loadSites);
